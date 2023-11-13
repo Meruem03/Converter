@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Converter </title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bitter&family=Caveat&family=Croissant+One&family=Libre+Baskerville&family=Roboto&family=Young+Serif&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        </br> <h1>Latin to Georgian Converter</h1> </br>
+        <div class="container">
+            <div class="input-div">
+                <textarea type="text" id="inputField" placeholder="Type your text..." oninput="updateOutput()"></textarea>
+            </div>
+        
+            <div class="output-div">
+                <output id="outputField">Converted text will be displayed here...</output>
+                <button class="copy-button" onclick="copyToClipboard()">Copy</button>
+            </div>
+        </div>
+
+        <footer>©Elene&Ilia</footer>
+
+        <script>
+            const englishToGeorgian = {
+                // Your mapping here
+                'a': 'ა',
+                'b': 'ბ',
+                'c': 'ც',
+                'd': 'დ',
+                'e': 'ე',
+                'f': 'ფ',
+                'g': 'გ',
+                'h': 'ჰ',
+                'i': 'ი',
+                'j': 'ჯ',
+                'k': 'კ',
+                'l': 'ლ',
+                'm': 'მ',
+                'n': 'ნ',
+                'o': 'ო',
+                'p': 'პ',
+                'q': 'ქ',
+                'r': 'რ',
+                's': 'ს',
+                't': 'ტ',
+                'u': 'უ',
+                'v': 'ვ',
+                'w': 'წ',
+                'x': 'ხ',
+                'y': 'ყ',
+                'z': 'ზ',
+                'A': 'ა',
+                'B': 'ბ',
+                'C': 'ჩ',
+                'ch': 'ჩ',
+                'D': 'დ',
+                'E': 'ე',
+                'F': 'ფ',
+                'G': 'გ',
+                'H': 'ჰ',
+                'I': 'ი',
+                'J': 'ჯ',
+                'K': 'კ',
+                'L': 'ლ',
+                'M': 'მ',
+                'N': 'ნ',
+                'O': 'ო',
+                'P': 'პ',
+                'Q': 'ქ',
+                'R': 'ღ',
+                'S': 'შ',
+                'sh': 'შ',
+                'T': 'თ',
+                'U': 'უ',
+                'V': 'ვ',
+                'W': 'ჭ',
+                'X': 'ხ',
+                'Y': 'ყ',
+                'Z': 'ძ',
+                '~': '“',
+                '`': '„',
+            };
+
+            function updateOutput() {
+                // Get the input value
+                const inputValue = document.getElementById('inputField').value;
+
+                // Convert and update the output with the input value
+                const georgianText = inputValue.trim() ? convertToGeorgian(inputValue) : 'Converted text will be displayed here';
+                document.getElementById('outputField').textContent = georgianText;
+            }
+
+            function convertToGeorgian(text) {
+                let georgianText = '';
+                for (let char of text) {
+                    if (char in englishToGeorgian) {
+                        georgianText += englishToGeorgian[char];
+                    } else {
+                        georgianText += char;  // Keep characters that are not in the mapping
+                    }
+                }
+                return georgianText;
+            }
+
+            function copyToClipboard() {
+                const outputField = document.getElementById('outputField');
+                const textToCopy = outputField.textContent;
+
+                // Create a temporary textarea to copy the text
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                document.body.appendChild(textarea);
+
+                // Select and copy the text
+                textarea.select();
+                document.execCommand('copy');
+
+                // Remove the temporary textarea
+                document.body.removeChild(textarea);
+
+                // Optionally, provide some user feedback (e.g., change the button text)
+                alert('Text copied to clipboard!');
+            }
+        </script>
+
+    </body>
+</html>
