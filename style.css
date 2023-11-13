@@ -47,11 +47,10 @@ h1 {
 }
 
 .input-div textarea::placeholder {
-    color: #A9A9A9;
+    color: black;
     font-family: 'Bitter', serif; 
     font-weight: bolder;
     font-size: 13px;
-    /* padding: 5px; */
 }
 
 .output-div{
@@ -67,10 +66,10 @@ h1 {
 
 .output-div output {
     margin-left: 5px;
-    color: #A9A9A9;
     font-size: 13px;
     font-family: 'Bitter', serif;
     font-weight: bolder;
+    color: black;
 }
 
 .copy-button {
