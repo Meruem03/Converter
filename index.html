@@ -83,26 +83,71 @@
                 'Z': 'ძ',
                 '~': '“',
                 '`': '„',
+                //newly added
+                'ch': 'ჩ',
+                'Ch': 'ჩ',
+                'CH': 'ჩ',
+                'cH': 'ჩ',
+                'ts': 'წ',
+                'Ts': 'წ', 
+                'ts': 'წ', 
+                'sh': 'შ',
+                'Sh': 'შ',
+                'SH': 'შ',
+                'sH': 'შ',
+                'Dz': 'ძ',
+                'dz': 'ძ',
+                'DZ': 'ძ',
+                'tch': 'ჭ',
+
             };
 
             function updateOutput() {
                 // Get the input value
                 const inputValue = document.getElementById('inputField').value;
-
+                
                 // Convert and update the output with the input value
-                const georgianText = inputValue.trim() ? convertToGeorgian(inputValue) : 'Converted text will be displayed here...';
+                const georgianText = inputValue.trim() ? convertToGeorgian(inputValue) : 'Converted text will be displayed here';
                 document.getElementById('outputField').textContent = georgianText;
             }
-
+            
             function convertToGeorgian(text) {
                 let georgianText = '';
-                for (let char of text) {
-                    if (char in englishToGeorgian) {
+                let i = 0;
+
+                while (i < text.length) {
+                    const char = text[i];
+
+                    // Check for three-symbol combinations
+                    if (i < text.length - 2) {
+                        const threeChars = char + text[i + 1] + text[i + 2];
+                        if (englishToGeorgian.hasOwnProperty(threeChars)) {
+                            georgianText += englishToGeorgian[threeChars];
+                            i += 3; // Move to the next triplet
+                            continue;
+                        }
+                    }
+
+                    // Check for two-symbol combinations
+                    if (i < text.length - 1) {
+                        const twoChars = char + text[i + 1];
+                        if (englishToGeorgian.hasOwnProperty(twoChars)) {
+                            georgianText += englishToGeorgian[twoChars];
+                            i += 2; // Move to the next pair
+                            continue;
+                        }
+                    }
+
+                    // Check for single-symbol mappings
+                    if (englishToGeorgian.hasOwnProperty(char)) {
                         georgianText += englishToGeorgian[char];
                     } else {
-                        georgianText += char;  // Keep characters that are not in the mapping
+                        georgianText += char; // Keep characters that are not in the mapping
                     }
+
+                    i++;
                 }
+
                 return georgianText;
             }
 
